@@ -7,22 +7,14 @@ class List
     task_list[@task1.title] = @task1.detail
     task_list[@task2.title] = @task2.detail
     task_list[@task3.title] = @task3.detail
+    puts task_list
   end
 
 end
 
 
-
-# creating a new instance of List creates three instances of the Task class
-# the task class has a default state of "need to do"
-# something is wrong though because these currently have a "nil state"
-# only have a class of "task" when checking inside the list class
-# need to expose that some how
-# should do ^^ with an array, want to push my initialized variables to an array
-
-
 class Task
-attr_accessor :title, :detail
+attr_accessor :title, :detail, :state
 
 def initialize(title, detail)
   @state = "need to do"
@@ -36,4 +28,7 @@ end
 end
 
 a = List.new
-a.get_tasks
+
+
+# creates three instances of the Task class when a new List object is created
+# Tasks have a few variables but checking the values is kind of bad and does not work
