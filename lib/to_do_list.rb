@@ -4,14 +4,20 @@ class List
   def initialize(name)
     @tasks_created = 0
     @name = name
+    @all_the_instances = []
     @task_list = {}
-    @task1 = Task.new("default1","undefined")
-    @task2 = Task.new("default2","undefined")
-    @task3 = Task.new("default3","undefined")
-    @task_list[@task1.title] = @task1.detail
-    @task_list[@task2.title] = @task2.detail
-    @task_list[@task3.title] = @task3.detail
-    puts @task_list #big sigh
+    @i = 0
+  end
+
+  def instance_counter
+    @i += 1
+  end
+
+  def new_variable
+    newtaskvariable = @task_list.select { |k,v| k == @task.title }
+    instance_variable_set("@task#{@i}", newtaskvariable)
+    instance_counter
+    puts @task0.class
   end
 
   def tasker_questions(num)
@@ -24,10 +30,16 @@ class List
     end
   end
 
+def your_to_do
+  puts "your list #{@name}:"
+  @task_list.each {|k, v| puts "#{k} - #{v}"}
+end
+
   def create_new_task(title, description)
-    @task4 = Task.new(title,description)
-    @task_list[@task4.title] = @task4.detail
-    puts @task_list
+    @task = Task.new(title,description)
+    puts @task.class
+    @task_list[@task.title] = @task.detail
+    new_variable
   end
   # i want to add a way to automatically +1 the tasks that are being used for the key in the task_list
   # also want to add a method to expose that task list
@@ -75,9 +87,16 @@ end
 task_aray = Array.new(number_o_tasks)
 user_list.tasker_questions(task_aray)
 
+puts "here is your to do list bro tendo"
+
+user_list.your_to_do
+
+
+# right now this works to return a list of shit to do, but the instance
+# variables being returned are hashes and not actual objects of the Task class
+# this seems wrong to me. 
 
 ## >> ## ^^ TO DO FOR THIS (LOL) ^^ ## << ##
 # need to add a method that will print out the tasks
-# add a way to ratchet through new tasks that are being used for keys
 # finish out the script
-# come up with better names for everything.. lol 
+# come up with better names for everything.. lol
