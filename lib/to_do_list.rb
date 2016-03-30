@@ -30,6 +30,7 @@ class List
 
   def create_new_task(title, description)
     tasker = Task.new(title,description)
+    tasker.store_this
     @task_list[tasker.title] = tasker.detail
     #instance_counter
   end
@@ -37,6 +38,7 @@ class List
 end
 
 class Task
+@@instances = []
 attr_accessor :title, :detail, :state
 
 def initialize(title, detail)
@@ -44,8 +46,13 @@ def initialize(title, detail)
   @title = title
   @detail = detail
 end
-def check_state
-  puts @state.inspect
+
+def self.instances
+  @@instances
+end
+
+def store_this
+  @@instances << self
 end
 
 end
@@ -78,8 +85,21 @@ user_list.tasker_questions(task_aray)
 
 user_list.your_to_do
 
+Task.instances.each do |x|
+  print x.title + " "
+  print x.detail + " "
+  print x.state
+  puts
+end
+
 
 ## >> ## ^^ TO DO FOR THIS (LOL) ^^ ## << ##
 # so the instance of the task class kind of just gets destoryed :/
-# i really want to store those for some reason. i guess it feels right 2 me
-# come up with better names for everything.. lol
+# added a global variable
+# this is bad news
+# i think I should store the key value pair as a hash in an ordered array
+# that way i can access the instance of the task class by calling
+# Task.instance[0] based on the order the task is added to the class
+# its not great but whatevs
+
+## need to decouple tasker questions 
